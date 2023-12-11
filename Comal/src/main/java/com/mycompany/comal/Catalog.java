@@ -19,7 +19,15 @@ public class Catalog implements Iterable<Dishes> {
         dishes.add(dish);
     }
     
-
+    public void addDishQuantity(String id, int cantidad){
+          for (Dishes dish : dishes) {
+            if (dish.getCode().equals(id)) {
+                dish.setQuantity((dish.getQuantity()+cantidad));
+                break;
+            }
+        }
+    }
+    
     public Dishes getDish(String code){
 	int size = dishes.size();
 	for(int indice = 0; indice<size; indice++) {
@@ -36,4 +44,3 @@ public class Catalog implements Iterable<Dishes> {
       return dishes.iterator();
     }
 }
-
