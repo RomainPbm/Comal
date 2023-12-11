@@ -19,10 +19,15 @@ public class Sales implements Iterable<OrderDish> {
         ids++;
         sales.add(order);
     }
+    
     public int lastId(){
         return ids;
     }
-
+    
+    public OrderDish lastSale(){
+       return sales.getLast();
+    }
+    
     public OrderDish getSale(int code){
 	int size = sales.size();
 	for(int indice = 0; indice<size; indice++) {
@@ -38,6 +43,4 @@ public class Sales implements Iterable<OrderDish> {
     public Iterator<OrderDish> iterator() {
         return sales.iterator();
     }
-
-
 }
