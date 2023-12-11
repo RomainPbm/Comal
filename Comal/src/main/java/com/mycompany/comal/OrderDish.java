@@ -9,5 +9,15 @@ package com.mycompany.comal;
  * @author romai
  */
 public class OrderDish {
+    private int quantity;
+
+    public OrderDish(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+    
     
 }

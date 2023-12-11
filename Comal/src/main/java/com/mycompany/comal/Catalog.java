@@ -36,5 +36,3 @@ public class Catalog implements Iterable<Dishes> {
       return dishes.iterator();
     }
 }
-
-public

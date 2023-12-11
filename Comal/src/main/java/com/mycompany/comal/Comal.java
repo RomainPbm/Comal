@@ -6,6 +6,7 @@ package com.mycompany.comal;
 import java.util.Scanner;
 
 public class Comal {
+Catalog catalog = new Catalog();
 
     public static void main(String[] args) {
         
@@ -59,6 +60,35 @@ public class Comal {
         System.out.println("            ---COMAL---");
         System.out.println(" 1. Agregar sueldo");
         System.out.println(" 2. Ordenar un platillo"); 
+    }
+    
+    public double menu4AddC(){     
+        Scanner keyboard = new Scanner(System.in);
+        double credit = 0;        
+        boolean enterValid = false;
+        
+        System.out.println("            ---COMAL---");
+        while (!enterValid) {
+            System.out.print("Ingrese el numero de ecuaciones que lleva su sistema: ");
+            try {
+                credit = Double.parseDouble(keyboard.nextLine());
+                if ( credit > 0 ) {
+                    enterValid = true;
+                } else {
+                    System.err.println("Error: Ingrese un numero mayor a 0.");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Error: Ingrese un numero.");
+            }     
+        }
+     
+    return credit;
+    }
+        
+    public void displayCatalog(){
+        for(Dishes dish : catalog){
+            System.out.println(dish);
+        }
     }
     
     public int getValidOption(int min, int max, String prompt) {
