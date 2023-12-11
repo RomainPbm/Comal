@@ -8,12 +8,23 @@ import java.util.Scanner;
 public class Comal {
 Catalog catalog = new Catalog();
 
+    public Comal(){
+        Dishes dish = new Dishes("1", "Torta de jamon" ,65, 3);
+        catalog.addDishes(dish);
+            Dishes dish2 = new Dishes("2", "Enchiladas" ,125, 2);
+        catalog.addDishes(dish2);
+            Dishes dish3 = new Dishes("3", "Quesadilla de bistec" ,35, 6);
+        catalog.addDishes(dish3);
+    }
     public static void main(String[] args) {
-        
+    Scanner keyboard = new Scanner(System.in);
+    
         Comal comal = new Comal();
         int opc1 = 1; 
         int opc2 = 1; 
         int opc3 = 1;
+        int opc4 = 1;
+        int file = 1;
         
         
         comal.menu1();
@@ -22,17 +33,33 @@ Catalog catalog = new Catalog();
             switch(opc1){
                 case 1: //agregar un platillo
                 break;
-                case 2:
+                case 2: //ingresar
                     comal.menu2();
                     opc2 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
                     switch(opc2){
-                        case 1: //expediente alumno
+                        case 1: //alumno
+                            System.out.print("\nIngrese su expediente: ");
+                            file = Integer.parseInt(keyboard.nextLine());
                             comal.menu3();
-                            opc3 = comal.getValidOption(1, 3, "Ingrese una opcion: ");
+                            opc3 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
+                            switch(opc3){
+                                case 1: comal.menu4AddC();//creditoestudiante
+                                break;
+                                case 2: comal.displayCatalog(); //ordenarestudiante
+                                break;
+                            }
                         break;
-                        case 2: //expediente profesor
+                        case 2: //profesor
+                            System.out.print("\nIngrese su expediente: ");
+                            file = Integer.parseInt(keyboard.nextLine());
                             comal.menu3();
-                            opc3 = comal.getValidOption(1, 3, "Ingrese una opcion: ");
+                            opc3 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
+                            switch(opc3){
+                                case 1: comal.menu4AddC(); //creditoprofesor
+                                break;
+                                case 2: comal.displayCatalog(); //ordenarprofesor
+                                break;
+                            }
                         break;    
                     }
                 break;               
@@ -46,7 +73,7 @@ Catalog catalog = new Catalog();
     public void menu1(){
         System.out.println("            ---COMAL---");
         System.out.println(" 1. Agregar un platillo al catalogo");
-        System.out.println(" 2. Iniciar sesion");
+        System.out.println(" 2. Ingresar");
         System.out.println(" 0. Finalizar el dia");
     }
     
@@ -58,7 +85,7 @@ Catalog catalog = new Catalog();
     
     public void menu3(){
         System.out.println("            ---COMAL---");
-        System.out.println(" 1. Agregar sueldo");
+        System.out.println(" 1. Agregar credito");
         System.out.println(" 2. Ordenar un platillo"); 
     }
     
@@ -69,7 +96,7 @@ Catalog catalog = new Catalog();
         
         System.out.println("            ---COMAL---");
         while (!enterValid) {
-            System.out.print("Ingrese el numero de ecuaciones que lleva su sistema: ");
+            System.out.print("Ingrese el credito que desea agregar: ");
             try {
                 credit = Double.parseDouble(keyboard.nextLine());
                 if ( credit > 0 ) {
@@ -86,10 +113,13 @@ Catalog catalog = new Catalog();
     }
         
     public void displayCatalog(){
+        
         for(Dishes dish : catalog){
-            System.out.println(dish);
+            System.out.println(dish.toString());
         }
     }
+    
+    
     
     public int getValidOption(int min, int max, String prompt) {
         Scanner keyboard = new Scanner(System.in);

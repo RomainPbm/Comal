@@ -37,4 +37,3 @@ public class Catalog implements Iterable<Dishes> {
     }
 }
 
-public
