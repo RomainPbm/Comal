@@ -13,7 +13,7 @@ public class Comal {
 
 
     public Comal(){
-                Dishes dish = new Dishes("1", "Torta de jamon" ,65, 3);
+            Dishes dish = new Dishes("1", "Torta de jamon" ,65, 3);
         catalog.addDishes(dish);
             Dishes dish2 = new Dishes("2", "Enchiladas" ,125, 2);
         catalog.addDishes(dish2);
@@ -108,7 +108,7 @@ public class Comal {
                                             System.out.println("Ingrese un numero mayor a 0");
                                         }
                                     }
-                                   if(comal.checkPurchace(file, cantida, codeD)){
+                                   if(comal.checkPurchace(file, cantida, codeD)){ //registar ventas, restar credito y restar cantidad de platillos
                                        comal.sales.addSale(new OrderDish(comal.sales.lastId(),comal.catalog.getDish(codeD), cantida, file));
                                        comal.users.restarCredito((comal.catalog.getDish(codeD).getPrice()*cantida), file);
                                        comal.catalog.getDish(codeD).setQuantity((comal.catalog.getDish(codeD).getQuantity()-cantida));
@@ -140,11 +140,12 @@ public class Comal {
     
     public void menu3(int file){
         System.out.println("            ---COMAL---");
-        System.out.println("Usuario: " + users.getUser(file));
+        System.out.println(users.getUser(file));
         System.out.println(" 1. Agregar credito");
         System.out.println(" 2. Ordenar un platillo"); 
     }
     
+    //menu para obtener credito
     public double menu4AddC(){     
         Scanner keyboard = new Scanner(System.in);
         double credit = 0;        
