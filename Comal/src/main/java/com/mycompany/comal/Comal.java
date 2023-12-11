@@ -8,59 +8,36 @@ import java.util.Scanner;
 public class Comal {
 
     public static void main(String[] args) {
-        Scanner keyboard = new Scanner(System.in);
         
         Comal comal = new Comal();
         int opc1 = 1; 
-        int opc2 = 1;       
-        boolean enterValid = false;
+        int opc2 = 1; 
+        int opc3 = 1;
         
         
         comal.menu1();
-        while (!enterValid) {
-            System.out.print("Ingrese una opcion: ");
-            try {
-                opc1 = Integer.parseInt(keyboard.nextLine());
-                if ( opc1 >= 0 && opc1 <= 2) {
-                    enterValid = true;
-                } else {
-                    System.err.println("Error: Ingrese una valor de las opciones.");
-                            
-                }
-            } catch (NumberFormatException e) {
-                System.err.println("Error: Ingrese un numero.");
-            }     
-        }
-        
+        opc1 = comal.getValidOption(0, 2, "Ingrese una opcion: ");
         do{
             switch(opc1){
-                case 1: 
-                    break;
+                case 1: //agregar un platillo
+                break;
                 case 2:
                     comal.menu2();
-                    while (!enterValid) {
-                        System.out.print("Ingrese una opcion: ");
-                        try {
-                            opc2 = Integer.parseInt(keyboard.nextLine());
-                            if ( opc2 == 1 && opc2 == 2) {
-                                enterValid = true;
-                            } else {
-                                 System.err.println("Error: Ingrese una opcion");
-                            }
-                        } catch (NumberFormatException e) {
-                             System.err.println("Error: Ingrese un numero.");
-                        }     
-                    }       
+                    opc2 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
                     switch(opc2){
-                        case 1:
-                    
+                        case 1: //expediente alumno
+                            comal.menu3();
+                            opc3 = comal.getValidOption(1, 3, "Ingrese una opcion: ");
+                        break;
+                        case 2: //expediente profesor
+                            comal.menu3();
+                            opc3 = comal.getValidOption(1, 3, "Ingrese una opcion: ");
+                        break;    
                     }
-                break;
-                
+                break;               
             }          
         }while (opc1 != 0);
         
-        System.out.println("Ingreso 0 ");
         
         
     }
@@ -68,7 +45,7 @@ public class Comal {
     public void menu1(){
         System.out.println("            ---COMAL---");
         System.out.println(" 1. Agregar un platillo al catalogo");
-        System.out.println(" 2. Ordenar un platillo");
+        System.out.println(" 2. Iniciar sesion");
         System.out.println(" 0. Finalizar el dia");
     }
     
@@ -76,6 +53,35 @@ public class Comal {
         System.out.println("            ---COMAL---");
         System.out.println(" 1. Alumno");
         System.out.println(" 2. Profesor");   
+    }
+    
+    public void menu3(){
+        System.out.println("            ---COMAL---");
+        System.out.println(" 1. Agregar sueldo");
+        System.out.println(" 2. Ordenar un platillo"); 
+    }
+    
+    public int getValidOption(int min, int max, String prompt) {
+        Scanner keyboard = new Scanner(System.in);
+        int option = -1;
+        boolean enterValid = false;
+
+        while (!enterValid) {
+            try {
+                System.out.print(prompt);
+                option = Integer.parseInt(keyboard.nextLine());
+
+                if (option >= min && option <= max) {
+                    enterValid = true;
+                } else {
+                    System.err.println("Error: Ingrese una opción válida entre " + min + " y " + max + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Error: Ingrese un número válido.");
+            }
+        }
+
+        return option;
     }
     
 }
