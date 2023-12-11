@@ -17,10 +17,10 @@ public class OrderDish {
     
     public OrderDish(int id, Dishes dish, int quantity, int userId) {
         this.id = id;
-        this.userId=userId;
+        this.userId = userId;
         this.dish = dish;
         this.quantity = quantity;
-        this.total=dish.getPrice()*quantity;
+        this.total = dish.getPrice()*quantity;
     }
 
     public int getId() {

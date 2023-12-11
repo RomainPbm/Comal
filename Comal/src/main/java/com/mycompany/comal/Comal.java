@@ -67,7 +67,7 @@ public class Comal {
                         case 1: //alumno
                             System.out.print("\nIngrese su expediente: ");
                             file = Integer.parseInt(keyboard.nextLine());
-                            comal.menu3();
+                            comal.menu3(file);
                             opc3 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
                             switch(opc3){
                                 case 1: 
@@ -93,7 +93,7 @@ public class Comal {
                         case 2: //profesor
                             System.out.print("\nIngrese su expediente: ");
                             file = Integer.parseInt(keyboard.nextLine());
-                            comal.menu3();
+                            comal.menu3(file);
                             opc3 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
                             switch(opc3){
                                 case 1: comal.menu4AddC(); //creditoprofesor
@@ -134,8 +134,9 @@ public class Comal {
         System.out.println(" 2. Profesor");   
     }
     
-    public void menu3(){
+    public void menu3(int file){
         System.out.println("            ---COMAL---");
+        System.out.println("Usuario: " + users.getUser(file));
         System.out.println(" 1. Agregar credito");
         System.out.println(" 2. Ordenar un platillo"); 
     }

@@ -19,6 +19,7 @@ public class Catalog implements Iterable<Dishes> {
         dishes.add(dish);
     }
     
+    //Se crea una funcion para tener la cantidad de platillos y agregar
     public void addDishQuantity(String id, int cantidad){
           for (Dishes dish : dishes) {
             if (dish.getCode().equals(id)) {
@@ -27,6 +28,7 @@ public class Catalog implements Iterable<Dishes> {
             }
         }
     }
+    
     
     public Dishes getDish(String code){
 	int size = dishes.size();
