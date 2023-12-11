@@ -19,7 +19,7 @@ public Comal(){
 }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner keyboard = new Scanner(System.in);
         Comal comal = new Comal();
         int opc1 = 1; 
         int opc2 = 1; 
@@ -28,21 +28,20 @@ public Comal(){
         int file = 1;
         
         
+        
+        do{
         comal.menu1();
         opc1 = comal.getValidOption(0, 2, "Ingrese una opcion: ");
-        do{
             switch(opc1){
                 case 1:
                     
                     System.out.println("            ---COMAL---");
                     comal.displayCatalog();
-                    System.out.println("Ingrese el id del platillo");
-                    String codeId=comal.getValidOptionString(1, 3, "Ingrese una opcion: ");
-                    
+                    String codeId=comal.getValidOptionString(1, 3, "Ingrese el id del platillo");
                     int cantidad=0;
                     while(cantidad==0){
-                         System.out.println("Ingrese el id del platillo");
-                         cantidad= Integer.parseInt(sc.nextLine());
+                         System.out.println("Ingrese la cantidad de existencia nueva");
+                         cantidad= Integer.parseInt(keyboard.nextLine());
                          if(cantidad<0){
                              System.out.println("Ingrese un numero mayor a 0");
                          }
