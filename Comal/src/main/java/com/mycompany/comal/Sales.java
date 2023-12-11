@@ -4,10 +4,37 @@
  */
 package com.mycompany.comal;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author romai
  */
-public class Sales {
+public class Sales implements Iterable<OrderDish> {
     
+    private ArrayList<OrderDish>sales = new ArrayList<>();
+    
+    public void addSale(OrderDish order){
+        sales.add(order);
+    }
+    
+
+    public OrderDish getSale(int code){
+	int size = sales.size();
+	for(int indice = 0; indice<size; indice++) {
+            OrderDish sale = sales.get(indice);
+		if(sale.getId()==code) {
+			return sale;
+		}
+	}
+	return null;
+    }
+
+    @Override
+    public Iterator<OrderDish> iterator() {
+        return sales.iterator();
+    }
+
+
 }
