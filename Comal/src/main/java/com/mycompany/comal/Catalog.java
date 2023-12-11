@@ -16,7 +16,7 @@ public class Catalog implements Iterable<Dishes> {
     private ArrayList<Dishes>dishes = new ArrayList<>();
     
     public void addDishes(Dishes dish){
-        
+        dishes.add(dish);
     }
     
 
@@ -37,4 +37,3 @@ public class Catalog implements Iterable<Dishes> {
     }
 }
 
-public
