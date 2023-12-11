@@ -18,6 +18,10 @@ public class Users implements Iterable<User> {
         users.add(user);
     }
     
+    public void restarCredito(double total, int file){
+        this.getUser(file).setCredit((this.getUser(file).getCredit()-total));
+    }
+    
     public void addCredit(int code, double credit){
         this.getUser(code).setCredit((credit + this.getUser(code).getCredit()));
     }

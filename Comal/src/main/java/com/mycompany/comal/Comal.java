@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Comal {
     Catalog catalog = new Catalog();
     Users users = new Users();
-
+    Sales sales = new Sales();
 
 
 
@@ -102,13 +102,17 @@ public class Comal {
                                 String codeD = comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
                                     int cantida = Integer.parseInt(keyboard.nextLine());                                  
                                     while(cantida == 0){
-                                        System.out.println("Ingrese la cantidad de existencia nueva");
+                                        System.out.println("Ingrese la cantidad del platillo");
                                         cantidad= Integer.parseInt(keyboard.nextLine());
                                         if(cantidad < 0){
                                             System.out.println("Ingrese un numero mayor a 0");
                                         }
                                     }
-                                    comal.checkPurchace(file, cantida, codeD);
+                                   if(comal.checkPurchace(file, cantida, codeD)){
+                                       comal.sales.addSale(new OrderDish(comal.sales.lastId(),comal.catalog.getDish(codeD), cantida, file));
+                                       comal.users.restarCredito((comal.catalog.getDish(codeD).getPrice()*cantida), file);
+                                       comal.catalog.getDish(codeD).setQuantity((comal.catalog.getDish(codeD).getQuantity()-cantida));
+                                   }
                                 break;
                             }
                         break;    
