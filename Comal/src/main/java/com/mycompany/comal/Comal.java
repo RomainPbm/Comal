@@ -37,7 +37,7 @@ public Comal(){
                     
                     System.out.println("            ---COMAL---");
                     comal.displayCatalog();
-                    String codeId=comal.getValidOptionString(1, 3, "Ingrese el id del platillo");
+                    String codeId=comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
                     int cantidad=0;
                     while(cantidad==0){
                          System.out.println("Ingrese la cantidad de existencia nueva");
@@ -61,6 +61,17 @@ public Comal(){
                                 case 1: comal.menu4AddC();//creditoestudiante
                                 break;
                                 case 2: comal.displayCatalog(); //ordenarestudiante
+                                    String codeD = comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
+                                    int cantida = Integer.parseInt(keyboard.nextLine());                                  
+                                    while(cantida == 0){
+                                        System.out.println("Ingrese la cantidad de existencia nueva");
+                                        cantidad= Integer.parseInt(keyboard.nextLine());
+                                        if(cantidad < 0){
+                                            System.out.println("Ingrese un numero mayor a 0");
+                                        }
+                                    }
+                                    comal.checkPurchace(file, cantida, codeD);
+                                    
                                 break;
                             }
                         break;
@@ -73,6 +84,16 @@ public Comal(){
                                 case 1: comal.menu4AddC(); //creditoprofesor
                                 break;
                                 case 2: comal.displayCatalog(); //ordenarprofesor
+                                String codeD = comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
+                                    int cantida = Integer.parseInt(keyboard.nextLine());                                  
+                                    while(cantida == 0){
+                                        System.out.println("Ingrese la cantidad de existencia nueva");
+                                        cantidad= Integer.parseInt(keyboard.nextLine());
+                                        if(cantidad < 0){
+                                            System.out.println("Ingrese un numero mayor a 0");
+                                        }
+                                    }
+                                    comal.checkPurchace(file, cantida, codeD);
                                 break;
                             }
                         break;    
@@ -134,7 +155,19 @@ public Comal(){
         }
     }
     
-    
+    public boolean checkPurchace(int file, int cantidad, String codeD){
+        catalog.getDish(codeD).getQuantity();
+        double total = (catalog.getDish(codeD).getPrice()*cantidad);
+       
+        boolean check = false;
+        if(catalog.getDish(codeD).getQuantity() < cantidad){
+        return false;
+        }else{
+            if(users.getUser(file).getCredit() < total ){
+                return false;
+            }
+        }  
+    return true;}
     
     public int getValidOption(int min, int max, String prompt) {
         Scanner keyboard = new Scanner(System.in);
@@ -158,7 +191,8 @@ public Comal(){
 
         return option;
     }
-     public String getValidOptionString(int min, int max, String prompt) {
+    
+    public String getValidOptionString(int min, int max, String prompt) {
         Scanner keyboard = new Scanner(System.in);
         String option = "";
         int id=0;
