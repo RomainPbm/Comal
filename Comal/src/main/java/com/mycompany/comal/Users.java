@@ -42,6 +42,10 @@ public class Users implements Iterable<User> {
     public Iterator<User> iterator() {
         return users.iterator();
     }
+    
+        public int getSize(){
+        return users.size();
+    }
 }
 
 

@@ -27,6 +27,10 @@ public class OrderDish {
         return id;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
     public Dishes getDish() {
         return dish;
     }

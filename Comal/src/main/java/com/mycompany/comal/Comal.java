@@ -52,10 +52,10 @@ public class Comal {
                     String codeId=comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
                     int cantidad=0;
                     while(cantidad==0){
-                         System.out.println("Ingrese la cantidad de existencia nueva");
+                         System.out.println("Ingrese la cantidad de existencia nueva: ");
                          cantidad= Integer.parseInt(keyboard.nextLine());
                          if(cantidad<0){
-                             System.out.println("Ingrese un numero mayor a 0");
+                             System.out.println("Ingrese un numero mayor a 0: ");
                          }
                     }
                     comal.catalog.addDishQuantity(codeId, cantidad);
@@ -70,23 +70,25 @@ public class Comal {
                             comal.menu3(file);
                             opc3 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
                             switch(opc3){
-                                case 1: 
-                                double credit=comal.menu4AddC();
-                                comal.users.addCredit(file, credit);
-                                
+                                case 1:double addCredit=comal.menu4AddC(); 
+                                    comal.users.addCredit(file, addCredit); 
                                 break;
-                                case 2: comal.displayCatalog(); //ordenarestudiante
-                                    String codeD = comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
-                                    int cantida = Integer.parseInt(keyboard.nextLine());                                  
+                                case 2: comal.displayCatalog(); 
+                                String codeD = comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
+                                    int cantida = 0;                                  
                                     while(cantida == 0){
-                                        System.out.println("Ingrese la cantidad de existencia nueva");
-                                        cantidad= Integer.parseInt(keyboard.nextLine());
-                                        if(cantidad < 0){
+                                        System.out.println("Ingrese la cantidad del platillo: ");
+                                        cantida= Integer.parseInt(keyboard.nextLine());
+                                        if(cantida < 0){
                                             System.out.println("Ingrese un numero mayor a 0");
                                         }
                                     }
-                                    comal.checkPurchace(file, cantida, codeD);
-                                    
+                                   if(comal.checkPurchace(file, cantida, codeD)){
+                                       comal.sales.addSale(new OrderDish(comal.sales.lastId(),comal.catalog.getDish(codeD), cantida, file));
+                                       comal.users.restarCredito((comal.catalog.getDish(codeD).getPrice()*cantida), file);
+                                       comal.catalog.getDish(codeD).setQuantity((comal.catalog.getDish(codeD).getQuantity()-cantida));
+                                       System.out.println(comal.sales.lastSale());
+                                   }
                                 break;
                             }
                         break;
@@ -96,15 +98,18 @@ public class Comal {
                             comal.menu3(file);
                             opc3 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
                             switch(opc3){
-                                case 1: comal.menu4AddC(); //creditoprofesor
+                                case 1: 
+                                    double addCredit=comal.menu4AddC(); //creditoprofesor
+                                    comal.users.addCredit(file, addCredit);
+                                
                                 break;
                                 case 2: comal.displayCatalog(); //ordenarprofesor
                                 String codeD = comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
-                                    int cantida = Integer.parseInt(keyboard.nextLine());                                  
+                                    int cantida = 0;                                  
                                     while(cantida == 0){
-                                        System.out.println("Ingrese la cantidad del platillo");
-                                        cantidad= Integer.parseInt(keyboard.nextLine());
-                                        if(cantidad < 0){
+                                        System.out.println("Ingrese la cantidad del platillo: ");
+                                        cantida= Integer.parseInt(keyboard.nextLine());
+                                        if(cantida < 0){
                                             System.out.println("Ingrese un numero mayor a 0");
                                         }
                                     }
@@ -112,6 +117,7 @@ public class Comal {
                                        comal.sales.addSale(new OrderDish(comal.sales.lastId(),comal.catalog.getDish(codeD), cantida, file));
                                        comal.users.restarCredito((comal.catalog.getDish(codeD).getPrice()*cantida), file);
                                        comal.catalog.getDish(codeD).setQuantity((comal.catalog.getDish(codeD).getQuantity()-cantida));
+                                       System.out.println(comal.sales.lastSale());
                                    }
                                 break;
                             }
@@ -121,6 +127,49 @@ public class Comal {
             }          
         }while (opc1 != 0);
         
+        comal.reports();
+        
+    }
+    public void reports(){
+        int size= users.getSize();
+        boolean fini=true;
+        double Total=0;
+        int id=1;
+        while(fini){
+            Total=0;
+            System.out.println("*******Compras de: "+users.getUser(id).getName());
+            for(OrderDish order : sales){
+                if(order.getUserId()==id){
+                    System.out.println("Compra: ");
+                    System.out.println(order);
+                    Total=Total+order.getTotal();
+                }
+            }
+            System.out.println("______________");
+            System.out.println("Total gastado: "+Total);
+            
+            System.out.println("credito restante: "+users.getUser(id).getCredit());
+            System.out.println("-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -");
+            id++;
+            if(id>size) fini=false;
+        }
+        int cantidadVendida=0;
+        double totalVendido=0;
+        for(Dishes dish: catalog){
+            cantidadVendida=0;
+            totalVendido=0;
+            for(OrderDish order: sales){
+                if(order.getDish().getCode().equals(dish.getCode())){
+                    cantidadVendida+=order.getQuantity();
+                    totalVendido=order.getTotal();
+                }
+            }
+            System.out.println("Ventas de platillo: "+ dish.getDescripcion());
+            System.out.println("______________");
+            System.out.println("cantidad vendida: "+ cantidadVendida);
+            System.out.println("Total en venta " + totalVendido);
+            System.out.println("- - - - - - - - - - - - - ");
+        }
         
         
     }
@@ -181,9 +230,11 @@ public class Comal {
        
         boolean check = false;
         if(catalog.getDish(codeD).getQuantity() < cantidad){
+        System.out.println("--- Compra rechazada: no hay suficiente comida ---");
         return false;
         }else{
             if(users.getUser(file).getCredit() < total ){
+                System.out.println("--- Compra rechazada: no cuentas con suficiente credito en tu cuenta ---");
                 return false;
             }
         }  
