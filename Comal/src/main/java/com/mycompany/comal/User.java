@@ -12,12 +12,10 @@ public class User {
     private int file;
     private String Name;
     private double credit; 
-    private double addcredit;
 
-    public User(int file, double credit, double addcredit, String Name) {
+    public User(int file, double credit, String Name) {
         this.file = file;
         this.credit = credit;
-        this.addcredit = addcredit;
         this.Name = Name;
     }
 
@@ -33,21 +31,13 @@ public class User {
         return credit;
     }
 
-    public double getAddcredit() {
-        return addcredit;
-    }
-
     public void setCredit(double credit) {
         this.credit = credit;
     }
 
     @Override
     public String toString() {
-        return "User{" + "file=" + file + ", Name=" + Name + ", credit=" + credit + ", addcredit=" + addcredit + '}';
-    }
-
-    
-
-    
+        return "User{" + "file=" + file + ", Name=" + Name + ", credit=" + credit + '}';
+    }   
     
 }
