@@ -12,13 +12,16 @@ import java.util.Iterator;
  * @author romai
  */
 public class Sales implements Iterable<OrderDish> {
-    
+    private int ids=1;
     private ArrayList<OrderDish>sales = new ArrayList<>();
     
     public void addSale(OrderDish order){
+        ids++;
         sales.add(order);
     }
-    
+    public int lastId(){
+        return ids;
+    }
 
     public OrderDish getSale(int code){
 	int size = sales.size();
