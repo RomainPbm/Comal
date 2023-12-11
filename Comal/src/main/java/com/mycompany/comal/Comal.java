@@ -6,17 +6,29 @@ package com.mycompany.comal;
 import java.util.Scanner;
 
 public class Comal {
-Catalog catalog = new Catalog();
+    Catalog catalog = new Catalog();
+    Users users = new Users();
 
 
-public Comal(){
-    Dishes dish = new Dishes("1", "Torta de jamon" ,65, 3);
-    catalog.addDishes(dish);
-        Dishes dish2 = new Dishes("2", "Enchiladas" ,125, 2);
-    catalog.addDishes(dish2);
-        Dishes dish3 = new Dishes("3", "Quesadilla de bistec" ,35, 6);
-    catalog.addDishes(dish3);
-}
+
+
+    public Comal(){
+                Dishes dish = new Dishes("1", "Torta de jamon" ,65, 3);
+        catalog.addDishes(dish);
+            Dishes dish2 = new Dishes("2", "Enchiladas" ,125, 2);
+        catalog.addDishes(dish2);
+            Dishes dish3 = new Dishes("3", "Quesadilla de bistec" ,35, 6);
+        catalog.addDishes(dish3);
+
+        User user = new User(1, 488, "Conde Contar");
+        users.addUser(user);
+        User user2 = new User(2, 1589, "Romain");
+        users.addUser(user2);
+        User user3 = new User(3, 3875, "Selena Gomez");
+        users.addUser(user3);
+        User user4 = new User(4, 165, "Terraneitor");
+        users.addUser(user4);
+    }
 
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
@@ -58,7 +70,10 @@ public Comal(){
                             comal.menu3();
                             opc3 = comal.getValidOption(1, 2, "Ingrese una opcion: ");
                             switch(opc3){
-                                case 1: comal.menu4AddC();//creditoestudiante
+                                case 1: 
+                                double credit=comal.menu4AddC();
+                                comal.users.addCredit(file, credit);
+                                
                                 break;
                                 case 2: comal.displayCatalog(); //ordenarestudiante
                                     String codeD = comal.getValidOptionString(1, 3, "Ingrese el id del platillo: ");
@@ -149,7 +164,6 @@ public Comal(){
     }
         
     public void displayCatalog(){
-        
         for(Dishes dish : catalog){
             System.out.println(dish.toString());
         }
